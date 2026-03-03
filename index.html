@@ -10,7 +10,7 @@
         :root {
             --text-main: #ffffff;
             --text-muted: #dcdcdc;
-            --accent: rgba(255, 255, 255, 0.2);
+            --accent: rgba(255, 255, 255, 0.15);
         }
 
         body { 
@@ -19,10 +19,11 @@
             color: var(--text-main); 
             overflow-x: hidden; 
             line-height: 1.6;
-            /* Animated Blue Gradient Background */
-            background: linear-gradient(-45deg, #010055, #0028a3, #271561, #2d296d);
+            
+            /* The Fix: Much darker colors from the palette and a very slow 45s animation */
+            background: linear-gradient(-45deg, #050510, #010055, #120a2e, #2d296d);
             background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            animation: gradientBG 45s ease infinite;
         }
 
         @keyframes gradientBG {
@@ -39,7 +40,7 @@
             align-items: center; 
             position: fixed;
             top: 0; width: 90vw;
-            background: rgba(1, 0, 85, 0.6);
+            background: rgba(5, 5, 16, 0.8);
             backdrop-filter: blur(10px);
             z-index: 100;
             border-bottom: 1px solid var(--accent);
@@ -83,7 +84,7 @@
         .marquee-container {
             width: 100%;
             overflow: hidden;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(5px);
             padding: 15px 0;
             display: flex;
@@ -94,7 +95,7 @@
         }
         .marquee-content {
             display: inline-block;
-            animation: scroll 20s linear infinite;
+            animation: scroll 25s linear infinite;
             font-size: 1.1rem;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -130,7 +131,7 @@
             gap: 20px;
         }
         .card {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
             padding: 40px;
             border-radius: 8px;
@@ -141,10 +142,10 @@
             overflow: hidden;
         }
         .card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
             border-color: #ffffff;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
         .card h3 { 
             margin-top: 0; 
@@ -163,13 +164,17 @@
         .diagram-container {
             margin: 40px 0;
             text-align: center;
+            padding: 40px;
+            border: 1px dashed var(--accent);
+            border-radius: 8px;
+            color: var(--text-muted);
         }
 
         /* Footer / Contact */
         footer {
             padding: 80px 5vw;
             text-align: center;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.3);
             border-top: 1px solid var(--accent);
         }
         .cta-btn {
@@ -209,7 +214,7 @@
         auto-rotate 
         camera-controls 
         disable-zoom 
-        exposure="1"
+        exposure="0.8"
         style="width: 100%; height: 350px; background-color: transparent; outline: none; margin-bottom: 20px;">
         </model-viewer>
         
@@ -238,7 +243,7 @@
         <h2 class="section-title">The Growth Ecosystem</h2>
         
         <div class="diagram-container">
-            
+            [Insert Circular Ecosystem Image Here]
         </div>
 
         <p class="intro-text">We integrate three critical pillars to form the structural backbone of scalable SMEs:</p>
@@ -263,10 +268,7 @@
         <h2 class="section-title">Growth Stages</h2>
         
         <div class="diagram-container">
-            
-
-[Image of business growth stages diagram]
-
+            [Insert Growth Stages Diagram Here]
         </div>
 
         <div class="grid-container">
@@ -289,20 +291,18 @@
         <h2>Ready to build your growth infrastructure?</h2>
         <p style="color: var(--text-muted); margin-bottom: 30px;">All engagements begin with a Growth Diagnostic Session.</p>
         <a href="https://wa.me/60123456789?text=Hi%20Crossfield%20Collective,%20I%20would%20like%20to%20book%20a%20Growth%20Diagnostic%20Session." class="cta-btn" target="_blank">Direct Line</a>
-        <p style="margin-top: 50px; font-size: 0.8rem; color: rgba(255,255,255,0.5);">Crossfield Collective. Infrastructure Design & Automation Implementation.</p>
+        <p style="margin-top: 50px; font-size: 0.8rem; color: rgba(255,255,255,0.4);">Crossfield Collective. Infrastructure Design & Automation Implementation.</p>
     </footer>
 
     <script>
-        // Hero Text Tilt Interaction
         const heroText = document.getElementById('dynamic-text');
         
         document.addEventListener('mousemove', (e) => {
-            let xAxis = (window.innerWidth / 2 - e.pageX) / 60;
-            let yAxis = (window.innerHeight / 2 - e.pageY) / 60;
+            let xAxis = (window.innerWidth / 2 - e.pageX) / 80; /* Calmed down the text movement slightly too */
+            let yAxis = (window.innerHeight / 2 - e.pageY) / 80;
             heroText.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
         });
 
-        // Smooth Scroll for Navigation Links
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();

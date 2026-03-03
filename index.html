@@ -249,58 +249,10 @@
         <a href="https://wa.me/60123456789?text=Hi%20Crossfield%20Collective,%20I%20would%20like%20to%20book%20a%20Growth%20Diagnostic%20Session." class="cta-btn" target="_blank">Direct Line</a>
     </footer>
 
+
+
+
     <script>
-        // Remove Loader when page is ready
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('loader');
-            setTimeout(() => {
-                loader.style.opacity = '0';
-                setTimeout(() => { loader.style.display = 'none'; }, 500);
-            }, 500);
-        });
-
-        // Mouse Tilt for Hero Text
-        const heroText = document.getElementById('dynamic-text');
-        document.addEventListener('mousemove', (e) => {
-            let xAxis = (window.innerWidth / 2 - e.pageX) / 90;
-            let yAxis = (window.innerHeight / 2 - e.pageY) / 90;
-            heroText.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-        });
-
-        // Smooth Scroll
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-
-        // Scroll Reveal Animation
-        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target); 
-                }
-            });
-        }, observerOptions);
-        document.querySelectorAll('.reveal').forEach((el) => { observer.observe(el); });
-
-        // Fetch client content from content.json
-        fetch('content.json')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('dynamic-text').innerHTML = data.hero_title;
-                document.getElementById('hero-sub').innerHTML = data.hero_sub;
-                document.getElementById('about-text').innerHTML = data.about_text;
-            })
-            .catch(error => console.error('Error loading content:', error));
-
-
-
-
-
         // Existing script for loading and mouse hover goes here
         window.addEventListener('load', () => {
             const loader = document.getElementById('loader');
@@ -360,6 +312,59 @@
         });
     </script>
 
+
+
+
+    
+
+    <script>
+        // Remove Loader when page is ready
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.display = 'none'; }, 500);
+            }, 500);
+        });
+
+        // Mouse Tilt for Hero Text
+        const heroText = document.getElementById('dynamic-text');
+        document.addEventListener('mousemove', (e) => {
+            let xAxis = (window.innerWidth / 2 - e.pageX) / 90;
+            let yAxis = (window.innerHeight / 2 - e.pageY) / 90;
+            heroText.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Scroll Reveal Animation
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.reveal').forEach((el) => { observer.observe(el); });
+
+        // Fetch client content from content.json
+        fetch('content.json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('dynamic-text').innerHTML = data.hero_title;
+                document.getElementById('hero-sub').innerHTML = data.hero_sub;
+                document.getElementById('about-text').innerHTML = data.about_text;
+            })
+            .catch(error => console.error('Error loading content:', error));
+    </script>
+
 </body>
 </html>
-

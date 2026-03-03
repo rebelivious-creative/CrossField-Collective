@@ -10,10 +10,7 @@
         :root {
             --text-main: #ffffff;
             --text-muted: #b0b5d1;
-            --bg-base: #010055;
-            --wave-1: #0028a3;
-            --wave-2: #6d79c2;
-            --wave-3: #271561;
+            --bg-base: #020112; /* Very dark blue/black */
             --card-bg: rgba(47, 49, 122, 0.4); 
             --card-border: rgba(109, 121, 194, 0.3); 
         }
@@ -27,35 +24,60 @@
             background-color: var(--bg-base); 
         }
 
-        /* Wave Background */
-        .wave-bg {
+        /* --- NEW VERTICAL GLOWING PILLAR BACKGROUND --- */
+        .pillar-bg {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: -1; overflow: hidden; background: var(--bg-base);
+            z-index: -2; display: flex; background: var(--bg-base);
         }
-        .blob {
-            position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.8;
-            transition: transform 0.2s ease-out;
+        
+        .pillar {
+            flex: 1; 
+            border-right: 1px solid rgba(255,255,255,0.03);
+            position: relative; 
+            overflow: hidden;
         }
-        .blob-1 {
-            background: var(--wave-1); width: 60vw; height: 60vw;
-            top: -10vw; left: -10vw; animation: float 20s infinite alternate ease-in-out;
-        }
-        .blob-2 {
-            background: var(--wave-2); width: 40vw; height: 40vw;
-            top: 20vh; right: 10vw; opacity: 0.3;
-        }
-        .blob-3 {
-            background: var(--wave-3); width: 70vw; height: 70vw;
-            bottom: -20vh; right: -10vw; animation: float-reverse 25s infinite alternate ease-in-out;
+        
+        /* The glowing light at the bottom of each panel */
+        .pillar::before {
+            content: ''; position: absolute; bottom: -30%; left: -50%; width: 200%; height: 100%;
+            background: radial-gradient(circle at center, var(--glow-color), transparent 60%);
+            opacity: 0.5; filter: blur(40px);
+            animation: pulse-glow var(--speed) infinite alternate ease-in-out;
         }
 
-        @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(10vw, 10vh) scale(1.1); } }
-        @keyframes float-reverse { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-10vw, -10vh) scale(1.2); } }
-        
+        /* Randomizing the colors and speeds for each pillar based on your palette */
+        .p1 { --glow-color: #0028a3; --speed: 6s; }
+        .p2 { --glow-color: #6d79c2; --speed: 4s; animation-delay: -1s; }
+        .p3 { --glow-color: #271561; --speed: 7s; animation-delay: -3s; }
+        .p4 { --glow-color: #0028a3; --speed: 5s; animation-delay: -2s; }
+        .p5 { --glow-color: #2f317a; --speed: 8s; animation-delay: -4s; }
+        .p6 { --glow-color: #6d79c2; --speed: 4.5s; animation-delay: -1.5s; }
+        .p7 { --glow-color: #271561; --speed: 6.5s; animation-delay: -0.5s; }
+        .p8 { --glow-color: #0028a3; --speed: 5.5s; animation-delay: -2.5s; }
+
+        @keyframes pulse-glow {
+            0% { transform: translateY(10%) scale(1); opacity: 0.3; }
+            100% { transform: translateY(-20%) scale(1.3); opacity: 0.8; }
+        }
+
+        /* Floating Particles */
+        .particles { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
+        .particle {
+            position: absolute; width: 4px; height: 4px; background: rgba(255,255,255,0.8);
+            border-radius: 50%; box-shadow: 0 0 10px rgba(255,255,255,0.5);
+            animation: float-up linear infinite;
+        }
+        @keyframes float-up {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            20% { opacity: 1; transform: translateY(-10vh) scale(1); }
+            80% { opacity: 1; transform: translateY(-40vh) scale(1); }
+            100% { transform: translateY(-50vh) scale(0.5); opacity: 0; }
+        }
+
         /* Navigation */
         header { 
             padding: 20px 5vw; display: flex; justify-content: space-between; align-items: center; 
-            position: fixed; top: 0; width: 90vw; background: rgba(1, 0, 85, 0.3);
+            position: fixed; top: 0; width: 90vw; background: rgba(2, 1, 18, 0.5);
             backdrop-filter: blur(20px); z-index: 100; border-bottom: 1px solid var(--card-border);
         }
         .logo { font-weight: 800; letter-spacing: 2px; font-size: 1.2rem; text-transform: uppercase;}
@@ -63,7 +85,7 @@
             color: var(--text-main); text-decoration: none; margin-left: 30px; 
             font-size: 0.9rem; letter-spacing: 1px; transition: color 0.3s ease;
         }
-        nav a:hover { color: var(--wave-2); }
+        nav a:hover { color: #6d79c2; }
 
         /* Hero Section */
         .hero { 
@@ -124,22 +146,15 @@
             transform: scale(1.05);
         }
 
-        /* --- DESKTOP LAYOUTS (Box Sizing Fix) --- */
+        /* Desktop Layouts */
         @media (min-width: 900px) {
-            
-            /* Ecosystem Section: 4 Columns */
-            #ecosystem .bento-grid { 
-                grid-template-columns: repeat(4, 1fr); 
-            }
+            #ecosystem .bento-grid { grid-template-columns: repeat(4, 1fr); }
             #eco-img { grid-column: 1 / 3; grid-row: 1 / 2; min-height: 300px; }
             #eco-network { grid-column: 1 / 3; grid-row: 2 / 3; }
             #eco-card-1 { grid-column: 3 / 4; grid-row: 1 / 3; }
             #eco-card-2 { grid-column: 4 / 5; grid-row: 1 / 3; }
 
-            /* Stages Section: 5 Columns */
-            #stages .bento-grid { 
-                grid-template-columns: repeat(5, 1fr); 
-            }
+            #stages .bento-grid { grid-template-columns: repeat(5, 1fr); }
             #stages .bento-card { grid-column: span 1; }
             #stages-img { grid-column: span 2; }
         }
@@ -153,15 +168,28 @@
             text-decoration: none; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; border-radius: 30px; 
             transition: transform 0.3s, background 0.3s;
         }
-        .cta-btn:hover { transform: scale(1.05); background: var(--wave-2); color: white; }
+        .cta-btn:hover { transform: scale(1.05); background: #6d79c2; color: white; }
     </style>
 </head>
 <body>
 
-    <div class="wave-bg">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2" id="interactive-wave"></div>
-        <div class="blob blob-3"></div>
+    <div class="pillar-bg">
+        <div class="pillar p1"></div>
+        <div class="pillar p2"></div>
+        <div class="pillar p3"></div>
+        <div class="pillar p4"></div>
+        <div class="pillar p5"></div>
+        <div class="pillar p6"></div>
+        <div class="pillar p7"></div>
+        <div class="pillar p8"></div>
+    </div>
+
+    <div class="particles">
+        <div class="particle" style="left: 20%; top: 80%; animation-duration: 12s;"></div>
+        <div class="particle" style="left: 60%; top: 90%; animation-duration: 15s; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 80%; top: 70%; animation-duration: 10s; animation-delay: 5s;"></div>
+        <div class="particle" style="left: 30%; top: 95%; animation-duration: 18s; animation-delay: 1s;"></div>
+        <div class="particle" style="left: 50%; top: 85%; animation-duration: 14s; animation-delay: 4s;"></div>
     </div>
 
     <header>
@@ -263,16 +291,11 @@
 
     <script>
         const heroText = document.getElementById('dynamic-text');
-        const wave = document.getElementById('interactive-wave');
         
         document.addEventListener('mousemove', (e) => {
             let xAxis = (window.innerWidth / 2 - e.pageX) / 80;
             let yAxis = (window.innerHeight / 2 - e.pageY) / 80;
             heroText.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-
-            let waveX = (e.pageX - window.innerWidth / 2) * 0.05;
-            let waveY = (e.pageY - window.innerHeight / 2) * 0.05;
-            wave.style.transform = `translate(${waveX}px, ${waveY}px)`;
         });
 
         document.querySelectorAll('nav a').forEach(anchor => {

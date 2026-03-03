@@ -9,8 +9,8 @@
     <style>
         :root {
             --text-main: #ffffff;
-            --text-muted: #dcdcdc;
-            --accent: rgba(255, 255, 255, 0.15);
+            --text-muted: #b0b5d1;
+            --accent: rgba(255, 255, 255, 0.1);
         }
 
         body { 
@@ -22,7 +22,7 @@
             background-color: #010055; /* Base color from your palette */
         }
 
-        /* --- INTERACTIVE FLUID WAVE BACKGROUND --- */
+        /* --- INTERACTIVE WAVE BACKGROUND --- */
         .wave-bg {
             position: fixed;
             top: 0; left: 0;
@@ -45,10 +45,10 @@
             animation: float 20s infinite alternate ease-in-out;
         }
         .blob-2 {
-            background: #6d79c2; /* Lighter interactive wave */
+            background: #6d79c2; 
             width: 40vw; height: 40vw;
             top: 20vh; right: 10vw;
-            opacity: 0.5;
+            opacity: 0.4;
         }
         .blob-3 {
             background: #271561;
@@ -68,14 +68,14 @@
         
         /* Navigation */
         header { 
-            padding: 30px 5vw; 
+            padding: 20px 5vw; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
             position: fixed;
             top: 0; width: 90vw;
-            background: rgba(1, 0, 85, 0.5);
-            backdrop-filter: blur(15px);
+            background: rgba(1, 0, 85, 0.3);
+            backdrop-filter: blur(20px);
             z-index: 100;
             border-bottom: 1px solid var(--accent);
         }
@@ -106,38 +106,11 @@
             margin-bottom: 20px; 
             line-height: 1.2;
             letter-spacing: -1px;
-            transition: transform 0.1s ease-out;
         }
         .hero-sub { 
             color: var(--text-muted); 
             font-size: 1.2rem; 
             max-width: 700px;
-        }
-
-        /* Infinite Marquee */
-        .marquee-container {
-            width: 100%;
-            overflow: hidden;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(5px);
-            padding: 15px 0;
-            display: flex;
-            white-space: nowrap;
-            font-weight: bold;
-            border-top: 1px solid var(--accent);
-            border-bottom: 1px solid var(--accent);
-        }
-        .marquee-content {
-            display: inline-block;
-            animation: scroll 25s linear infinite;
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        .marquee-content span { padding: 0 40px; }
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
         }
 
         /* Content Section */
@@ -156,48 +129,56 @@
             margin-bottom: 40px;
         }
 
-        /* Interactive Glass Cards */
-        .grid-container {
+        /* --- TECH BENTO BOX GRID --- */
+        .bento-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
+            grid-auto-flow: dense;
         }
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+        
+        /* Modern Bento Cards */
+        .bento-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
             padding: 40px;
-            border-radius: 8px;
-            cursor: pointer;
+            border-radius: 32px; /* Big rounded corners like the tech reference */
+            border: 1px solid rgba(255, 255, 255, 0.08);
             transition: all 0.4s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
-        .card:hover {
+        .bento-card:hover {
             transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-        }
-        .card h3 { 
-            margin-top: 0; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 1px;
-        }
-        .card p { 
-            color: var(--text-muted); margin-bottom: 0; font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* Diagram Images */
-        .diagram-container {
-            margin: 40px 0;
-            text-align: center;
+        /* Large Bento Card spanning 2 columns (for desktops) */
+        @media (min-width: 900px) {
+            .bento-large { grid-column: span 2; }
+            .bento-tall { grid-row: span 2; }
         }
-            .diagram-img {
-            max-width: 100%;
-            width: 800px; /* This stops it from getting too huge */
+
+        .bento-card h3 { 
+            margin-top: 0; 
+            font-size: 1.8rem; 
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+        }
+        .bento-card p { 
+            color: var(--text-muted); 
+            margin-bottom: 0; 
+            font-size: 1.1rem;
+        }
+
+        /* Auto-sizing images to fit inside the Bento Cards */
+        .bento-img {
+            width: 100%;
             height: auto;
-            border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            border: 1px solid var(--accent);
-            margin: 0 auto; /* This centers the image perfectly */
-            display: block;
+            border-radius: 16px;
+            margin-bottom: 20px;
         }
 
         /* Footer */
@@ -217,12 +198,13 @@
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border-radius: 4px;
+            border-radius: 30px; /* Matched the rounded aesthetic */
             transition: transform 0.3s, background 0.3s;
         }
         .cta-btn:hover {
             transform: scale(1.05);
-            background: #dcdcdc;
+            background: #6d79c2;
+            color: white;
         }
     </style>
 </head>
@@ -258,41 +240,41 @@
         <p class="hero-sub">Crossfield Collective aligns brand, systems, automation, and strategic networks to help SMEs scale beyond survival mode.</p>
     </section>
 
-    <div class="marquee-container">
-        <div class="marquee-content">
-            <span>Brand Architecture</span> • <span>Automation Design</span> • <span>Strategic Network</span> • <span>SME Growth</span> • 
-            <span>Brand Architecture</span> • <span>Automation Design</span> • <span>Strategic Network</span> • <span>SME Growth</span> •
-        </div>
-    </div>
-
     <section id="about" class="section">
         <h2 class="section-title">About Crossfield</h2>
-        <p class="intro-text">
-            Sustainable growth requires structure, clarity, and aligned systems. We work with SMEs across Southeast Asia and beyond to build operational foundations that reduce chaos and enable strategic expansion.
-        </p>
+        <div class="bento-grid">
+            <div class="bento-card bento-large">
+                <p style="font-size: 1.5rem; color: white;">Sustainable growth requires structure, clarity, and aligned systems.</p>
+                <br>
+                <p>We work with SMEs across Southeast Asia and beyond to build operational foundations that reduce chaos and enable strategic expansion.</p>
+            </div>
+            <div class="bento-card">
+                <h3>Our Role</h3>
+                <p>Infrastructure Architect.<br>Automation Designer.<br>Ecosystem Connector.</p>
+            </div>
+        </div>
     </section>
 
     <section id="ecosystem" class="section">
         <h2 class="section-title">The Growth Ecosystem</h2>
+        <p class="intro-text">We integrate three critical pillars to form the structural backbone of scalable SMEs.</p>
         
-        <div class="diagram-container">
-            <img src="assets/ecosystem.jpg" alt="Growth Ecosystem" class="diagram-img">
-        </div>
-
-        <p class="intro-text">We integrate three critical pillars to form the structural backbone of scalable SMEs:</p>
-        
-        <div class="grid-container">
-            <div class="card">
+        <div class="bento-grid">
+            <div class="bento-card bento-large" style="padding: 20px;">
+                <img src="assets/ecosystem.jpg" alt="Growth Ecosystem" class="bento-img">
+            </div>
+            
+            <div class="bento-card">
                 <h3>1. Brand Architecture</h3>
                 <p>We refine positioning, narrative, and market clarity so growth is aligned and differentiated.</p>
             </div>
-            <div class="card">
+            <div class="bento-card">
                 <h3>2. Automation Design</h3>
                 <p>We integrate smart automation to reduce manual strain and increase efficiency.</p>
             </div>
-            <div class="card">
+            <div class="bento-card bento-large">
                 <h3>3. Strategic Network</h3>
-                <p>We connect SMEs to the right ecosystem, including cross-border partnerships.</p>
+                <p>We connect SMEs to the right ecosystem, including cross-border partnerships, SME collaborations, and industry introductions.</p>
             </div>
         </div>
     </section>
@@ -300,22 +282,22 @@
     <section id="stages" class="section">
         <h2 class="section-title">Growth Stages</h2>
         
-        <div class="diagram-container">
-            <img src="assets/stages.jpg" alt="Growth Stages" class="diagram-img">
-        </div>
-
-        <div class="grid-container">
-            <div class="card">
+        <div class="bento-grid">
+            <div class="bento-card">
                 <h3>Stage 1: Foundation</h3>
                 <p>For early revenue SMEs establishing structure. Outcome: A structured business foundation ready for scale.</p>
             </div>
-            <div class="card">
+            <div class="bento-card">
                 <h3>Stage 2: Structure</h3>
                 <p>For SMEs experiencing growth strain. Outcome: Aligned operations and reduced founder dependency.</p>
             </div>
-            <div class="card">
+            <div class="bento-card">
                 <h3>Stage 3: Expansion</h3>
                 <p>For SMEs entering regional or new market growth. Outcome: Sustainable, structured expansion.</p>
+            </div>
+            
+            <div class="bento-card bento-large" style="padding: 20px;">
+                <img src="assets/stages.jpg" alt="Growth Stages Diagram" class="bento-img">
             </div>
         </div>
     </section>
@@ -327,24 +309,19 @@
     </footer>
 
     <script>
-        // Hero Text Tilt Interaction
         const heroText = document.getElementById('dynamic-text');
-        // The Interactive Wave Background
         const wave = document.getElementById('interactive-wave');
         
         document.addEventListener('mousemove', (e) => {
-            // Move the text slightly
             let xAxis = (window.innerWidth / 2 - e.pageX) / 80;
             let yAxis = (window.innerHeight / 2 - e.pageY) / 80;
             heroText.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
 
-            // Move the wave blob slightly towards the mouse
-            let waveX = (e.pageX - window.innerWidth / 2) * 0.1;
-            let waveY = (e.pageY - window.innerHeight / 2) * 0.1;
+            let waveX = (e.pageX - window.innerWidth / 2) * 0.05;
+            let waveY = (e.pageY - window.innerHeight / 2) * 0.05;
             wave.style.transform = `translate(${waveX}px, ${waveY}px)`;
         });
 
-        // Smooth Scroll for Navigation Links
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -357,4 +334,3 @@
 
 </body>
 </html>
-

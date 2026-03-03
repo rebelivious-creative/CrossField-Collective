@@ -10,7 +10,13 @@
         :root {
             --text-main: #ffffff;
             --text-muted: #b0b5d1;
-            --accent: rgba(255, 255, 255, 0.1);
+            /* Colors exactly from your palette */
+            --bg-base: #010055;
+            --wave-1: #0028a3;
+            --wave-2: #6d79c2;
+            --wave-3: #271561;
+            --card-bg: rgba(47, 49, 122, 0.4); /* #2f317a with transparency */
+            --card-border: rgba(109, 121, 194, 0.3); /* #6d79c2 */
         }
 
         body { 
@@ -19,131 +25,76 @@
             color: var(--text-main); 
             overflow-x: hidden; 
             line-height: 1.6;
-            background-color: #010055; /* Base color from your palette */
+            background-color: var(--bg-base); 
         }
 
         /* --- INTERACTIVE WAVE BACKGROUND --- */
         .wave-bg {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            z-index: -1;
-            overflow: hidden;
-            background: #010055;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1; overflow: hidden; background: var(--bg-base);
         }
         .blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.8;
+            position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.8;
             transition: transform 0.2s ease-out;
         }
         .blob-1 {
-            background: #0028a3;
-            width: 60vw; height: 60vw;
-            top: -10vw; left: -10vw;
-            animation: float 20s infinite alternate ease-in-out;
+            background: var(--wave-1); width: 60vw; height: 60vw;
+            top: -10vw; left: -10vw; animation: float 20s infinite alternate ease-in-out;
         }
         .blob-2 {
-            background: #6d79c2; 
-            width: 40vw; height: 40vw;
-            top: 20vh; right: 10vw;
-            opacity: 0.4;
+            background: var(--wave-2); width: 40vw; height: 40vw;
+            top: 20vh; right: 10vw; opacity: 0.3;
         }
         .blob-3 {
-            background: #271561;
-            width: 70vw; height: 70vw;
-            bottom: -20vh; right: -10vw;
-            animation: float-reverse 25s infinite alternate ease-in-out;
+            background: var(--wave-3); width: 70vw; height: 70vw;
+            bottom: -20vh; right: -10vw; animation: float-reverse 25s infinite alternate ease-in-out;
         }
 
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(10vw, 10vh) scale(1.1); }
-        }
-        @keyframes float-reverse {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(-10vw, -10vh) scale(1.2); }
-        }
+        @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(10vw, 10vh) scale(1.1); } }
+        @keyframes float-reverse { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-10vw, -10vh) scale(1.2); } }
         
         /* Navigation */
         header { 
-            padding: 20px 5vw; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            position: fixed;
-            top: 0; width: 90vw;
-            background: rgba(1, 0, 85, 0.3);
-            backdrop-filter: blur(20px);
-            z-index: 100;
-            border-bottom: 1px solid var(--accent);
+            padding: 20px 5vw; display: flex; justify-content: space-between; align-items: center; 
+            position: fixed; top: 0; width: 90vw; background: rgba(1, 0, 85, 0.3);
+            backdrop-filter: blur(20px); z-index: 100; border-bottom: 1px solid var(--card-border);
         }
         .logo { font-weight: 800; letter-spacing: 2px; font-size: 1.2rem; text-transform: uppercase;}
         nav a { 
-            color: var(--text-main); 
-            text-decoration: none; 
-            margin-left: 30px; 
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            transition: color 0.3s ease;
+            color: var(--text-main); text-decoration: none; margin-left: 30px; 
+            font-size: 0.9rem; letter-spacing: 1px; transition: color 0.3s ease;
         }
-        nav a:hover { color: #6d79c2; }
+        nav a:hover { color: var(--wave-2); }
 
         /* Hero Section */
         .hero { 
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center; 
-            padding: 100px 5vw 50px;
-            perspective: 1000px;
+            min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center; padding: 100px 5vw 50px; perspective: 1000px;
         }
-        h1 { 
-            font-size: clamp(2.5rem, 5vw, 4.5rem); 
-            margin-bottom: 20px; 
-            line-height: 1.2;
-            letter-spacing: -1px;
-        }
-        .hero-sub { 
-            color: var(--text-muted); 
-            font-size: 1.2rem; 
-            max-width: 700px;
-        }
+        h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: 20px; line-height: 1.2; letter-spacing: -1px; }
+        .hero-sub { color: var(--text-muted); font-size: 1.2rem; max-width: 700px; }
 
-        /* Content Section */
+        /* Section Titles */
         .section { padding: 100px 5vw; }
         .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            border-bottom: 1px solid var(--accent);
-            padding-bottom: 20px;
+            font-size: 2.5rem; margin-bottom: 40px; text-transform: uppercase;
+            border-bottom: 1px solid var(--card-border); padding-bottom: 20px;
         }
-        .intro-text {
-            font-size: 1.3rem;
-            color: var(--text-muted);
-            max-width: 800px;
-            margin-bottom: 40px;
-        }
+        .intro-text { font-size: 1.3rem; color: var(--text-muted); max-width: 800px; margin-bottom: 40px; }
 
-        /* --- TECH BENTO BOX GRID --- */
+        /* --- RESPONSIVE BENTO BOX CARDS --- */
         .bento-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
-            grid-auto-flow: dense;
+            grid-template-columns: 1fr; /* Mobile default: 1 column */
         }
         
-        /* Modern Bento Cards */
         .bento-card {
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--card-bg);
             backdrop-filter: blur(20px);
             padding: 40px;
-            border-radius: 32px; /* Big rounded corners like the tech reference */
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            border: 1px solid var(--card-border);
             transition: all 0.4s ease;
             display: flex;
             flex-direction: column;
@@ -151,61 +102,53 @@
         }
         .bento-card:hover {
             transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(47, 49, 122, 0.6);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
         }
 
-        /* Large Bento Card spanning 2 columns (for desktops) */
-        @media (min-width: 900px) {
-            .bento-large { grid-column: span 2; }
-            .bento-tall { grid-row: span 2; }
-        }
+        .bento-card h3 { margin-top: 0; font-size: 1.5rem; letter-spacing: 0.5px; margin-bottom: 15px; }
+        .bento-card p { color: var(--text-muted); margin-bottom: 0; font-size: 1rem; }
 
-        .bento-card h3 { 
-            margin-top: 0; 
-            font-size: 1.8rem; 
-            letter-spacing: 0.5px;
-            margin-bottom: 15px;
+        /* Card specially made for Images */
+        .image-card {
+            padding: 0; /* Remove padding so image goes to edges */
+            overflow: hidden;
         }
-        .bento-card p { 
-            color: var(--text-muted); 
-            margin-bottom: 0; 
-            font-size: 1.1rem;
-        }
-
-        /* Auto-sizing images to fit inside the Bento Cards */
-        .bento-img {
+        .image-card img {
             width: 100%;
-            height: auto;
-            border-radius: 16px;
-            margin-bottom: 20px;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .image-card:hover img {
+            transform: scale(1.05); /* Slight zoom on hover */
+        }
+
+        /* --- DESKTOP LAYOUTS (Matches your screenshots exactly) --- */
+        @media (min-width: 900px) {
+            
+            /* Ecosystem Section: 3 Columns */
+            #ecosystem .bento-grid { grid-template-columns: repeat(3, 1fr); }
+            #eco-img { grid-column: span 2; grid-row: span 2; min-height: 400px; } /* Big left image */
+            #eco-network { grid-column: span 2; } /* Wide bottom card */
+
+            /* Stages Section: 5 Columns for perfect sizing */
+            #stages .bento-grid { grid-template-columns: repeat(5, 1fr); }
+            #stages .bento-card { grid-column: span 1; } /* Cards take 1 space each */
+            #stages-img { grid-column: span 2; } /* Image takes 2 spaces to be wider */
         }
 
         /* Footer */
         footer {
-            padding: 80px 5vw;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.3);
-            border-top: 1px solid var(--accent);
+            padding: 80px 5vw; text-align: center; background: rgba(0, 0, 0, 0.3); border-top: 1px solid var(--card-border);
         }
         .cta-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 15px 40px;
-            background: #ffffff;
-            color: #010055;
-            text-decoration: none;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 30px; /* Matched the rounded aesthetic */
+            display: inline-block; margin-top: 20px; padding: 15px 40px; background: #ffffff; color: var(--bg-base);
+            text-decoration: none; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; border-radius: 30px; 
             transition: transform 0.3s, background 0.3s;
         }
-        .cta-btn:hover {
-            transform: scale(1.05);
-            background: #6d79c2;
-            color: white;
-        }
+        .cta-btn:hover { transform: scale(1.05); background: var(--wave-2); color: white; }
     </style>
 </head>
 <body>
@@ -242,15 +185,11 @@
 
     <section id="about" class="section">
         <h2 class="section-title">About Crossfield</h2>
-        <div class="bento-grid">
-            <div class="bento-card bento-large">
+        <div class="bento-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+            <div class="bento-card" style="grid-column: 1 / -1;">
                 <p style="font-size: 1.5rem; color: white;">Sustainable growth requires structure, clarity, and aligned systems.</p>
                 <br>
                 <p>We work with SMEs across Southeast Asia and beyond to build operational foundations that reduce chaos and enable strategic expansion.</p>
-            </div>
-            <div class="bento-card">
-                <h3>Our Role</h3>
-                <p>Infrastructure Architect.<br>Automation Designer.<br>Ecosystem Connector.</p>
             </div>
         </div>
     </section>
@@ -260,19 +199,21 @@
         <p class="intro-text">We integrate three critical pillars to form the structural backbone of scalable SMEs.</p>
         
         <div class="bento-grid">
-            <div class="bento-card bento-large" style="padding: 20px;">
-                <img src="assets/ecosystem.jpg" alt="Growth Ecosystem" class="bento-img">
+            <div class="bento-card image-card" id="eco-img">
+                <img src="assets/ecosystem.jpg" alt="Growth Ecosystem">
             </div>
             
             <div class="bento-card">
                 <h3>1. Brand Architecture</h3>
                 <p>We refine positioning, narrative, and market clarity so growth is aligned and differentiated.</p>
             </div>
+            
             <div class="bento-card">
                 <h3>2. Automation Design</h3>
                 <p>We integrate smart automation to reduce manual strain and increase efficiency.</p>
             </div>
-            <div class="bento-card bento-large">
+
+            <div class="bento-card" id="eco-network">
                 <h3>3. Strategic Network</h3>
                 <p>We connect SMEs to the right ecosystem, including cross-border partnerships, SME collaborations, and industry introductions.</p>
             </div>
@@ -284,20 +225,25 @@
         
         <div class="bento-grid">
             <div class="bento-card">
-                <h3>Stage 1: Foundation</h3>
+                <h3>Stage 1:<br>Foundation</h3>
+                <br>
                 <p>For early revenue SMEs establishing structure. Outcome: A structured business foundation ready for scale.</p>
             </div>
+            
             <div class="bento-card">
-                <h3>Stage 2: Structure</h3>
+                <h3>Stage 2:<br>Structure</h3>
+                <br>
                 <p>For SMEs experiencing growth strain. Outcome: Aligned operations and reduced founder dependency.</p>
             </div>
+            
             <div class="bento-card">
-                <h3>Stage 3: Expansion</h3>
+                <h3>Stage 3:<br>Expansion</h3>
+                <br>
                 <p>For SMEs entering regional or new market growth. Outcome: Sustainable, structured expansion.</p>
             </div>
             
-            <div class="bento-card bento-large" style="padding: 20px;">
-                <img src="assets/stages.jpg" alt="Growth Stages Diagram" class="bento-img">
+            <div class="bento-card image-card" id="stages-img">
+                <img src="assets/stages.jpg" alt="Growth Stages Diagram">
             </div>
         </div>
     </section>

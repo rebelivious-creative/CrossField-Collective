@@ -10,9 +10,10 @@
         :root {
             --text-main: #ffffff;
             --text-muted: #b0b5d1;
-            --bg-base: #020112; /* Very dark blue/black */
-            --card-bg: rgba(47, 49, 122, 0.4); 
-            --card-border: rgba(109, 121, 194, 0.3); 
+            --bg-base: #020112; 
+            --card-bg: rgba(255, 255, 255, 0.02); 
+            --card-border: rgba(255, 255, 255, 0.05); 
+            --card-hover: rgba(109, 121, 194, 0.1);
         }
 
         body { 
@@ -24,7 +25,7 @@
             background-color: var(--bg-base); 
         }
 
-        /* --- NEW VERTICAL GLOWING PILLAR BACKGROUND --- */
+        /* --- SUBTLE PILLAR BACKGROUND --- */
         .pillar-bg {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: -2; display: flex; background: var(--bg-base);
@@ -32,52 +33,47 @@
         
         .pillar {
             flex: 1; 
-            border-right: 1px solid rgba(255,255,255,0.03);
+            border-right: 1px solid rgba(255,255,255,0.02);
             position: relative; 
             overflow: hidden;
         }
         
-        /* The glowing light at the bottom of each panel */
         .pillar::before {
             content: ''; position: absolute; bottom: -30%; left: -50%; width: 200%; height: 100%;
             background: radial-gradient(circle at center, var(--glow-color), transparent 60%);
-            opacity: 0.5; filter: blur(40px);
+            opacity: 0.3; filter: blur(50px);
             animation: pulse-glow var(--speed) infinite alternate ease-in-out;
         }
 
-        /* Randomizing the colors and speeds for each pillar based on your palette */
-        .p1 { --glow-color: #0028a3; --speed: 6s; }
-        .p2 { --glow-color: #6d79c2; --speed: 4s; animation-delay: -1s; }
-        .p3 { --glow-color: #271561; --speed: 7s; animation-delay: -3s; }
-        .p4 { --glow-color: #0028a3; --speed: 5s; animation-delay: -2s; }
-        .p5 { --glow-color: #2f317a; --speed: 8s; animation-delay: -4s; }
-        .p6 { --glow-color: #6d79c2; --speed: 4.5s; animation-delay: -1.5s; }
-        .p7 { --glow-color: #271561; --speed: 6.5s; animation-delay: -0.5s; }
-        .p8 { --glow-color: #0028a3; --speed: 5.5s; animation-delay: -2.5s; }
+        .p1 { --glow-color: #0028a3; --speed: 8s; }
+        .p2 { --glow-color: #6d79c2; --speed: 6s; animation-delay: -1s; }
+        .p3 { --glow-color: #271561; --speed: 9s; animation-delay: -3s; }
+        .p4 { --glow-color: #0028a3; --speed: 7s; animation-delay: -2s; }
+        .p5 { --glow-color: #2f317a; --speed: 10s; animation-delay: -4s; }
+        .p6 { --glow-color: #6d79c2; --speed: 5.5s; animation-delay: -1.5s; }
+        .p7 { --glow-color: #271561; --speed: 8.5s; animation-delay: -0.5s; }
+        .p8 { --glow-color: #0028a3; --speed: 7.5s; animation-delay: -2.5s; }
 
         @keyframes pulse-glow {
-            0% { transform: translateY(10%) scale(1); opacity: 0.3; }
-            100% { transform: translateY(-20%) scale(1.3); opacity: 0.8; }
+            0% { transform: translateY(10%) scale(1); opacity: 0.2; }
+            100% { transform: translateY(-10%) scale(1.2); opacity: 0.5; }
         }
 
-        /* Floating Particles */
-        .particles { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
-        .particle {
-            position: absolute; width: 4px; height: 4px; background: rgba(255,255,255,0.8);
-            border-radius: 50%; box-shadow: 0 0 10px rgba(255,255,255,0.5);
-            animation: float-up linear infinite;
+        /* --- SCROLL REVEAL ANIMATIONS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        @keyframes float-up {
-            0% { transform: translateY(0) scale(0.5); opacity: 0; }
-            20% { opacity: 1; transform: translateY(-10vh) scale(1); }
-            80% { opacity: 1; transform: translateY(-40vh) scale(1); }
-            100% { transform: translateY(-50vh) scale(0.5); opacity: 0; }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Navigation */
         header { 
             padding: 20px 5vw; display: flex; justify-content: space-between; align-items: center; 
-            position: fixed; top: 0; width: 90vw; background: rgba(2, 1, 18, 0.5);
+            position: fixed; top: 0; width: 90vw; background: rgba(2, 1, 18, 0.7);
             backdrop-filter: blur(20px); z-index: 100; border-bottom: 1px solid var(--card-border);
         }
         .logo { font-weight: 800; letter-spacing: 2px; font-size: 1.2rem; text-transform: uppercase;}
@@ -96,60 +92,43 @@
         .hero-sub { color: var(--text-muted); font-size: 1.2rem; max-width: 700px; }
 
         /* Section Titles */
-        .section { padding: 100px 5vw; }
+        .section { padding: 120px 5vw; }
         .section-title {
-            font-size: 2.5rem; margin-bottom: 40px; text-transform: uppercase;
+            font-size: 2.5rem; margin-bottom: 50px; text-transform: uppercase;
             border-bottom: 1px solid var(--card-border); padding-bottom: 20px;
         }
-        .intro-text { font-size: 1.3rem; color: var(--text-muted); max-width: 800px; margin-bottom: 40px; }
 
-        /* Bento Box Cards */
+        /* Clean Bento Box Cards */
         .bento-grid {
-            display: grid;
-            gap: 20px;
-            grid-template-columns: 1fr;
+            display: grid; gap: 24px; grid-template-columns: 1fr;
         }
         
         .bento-card {
             background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            padding: 40px;
+            backdrop-filter: blur(15px);
+            padding: 50px 40px; /* Increased padding for cleaner look */
             border-radius: 24px;
             border: 1px solid var(--card-border);
-            transition: all 0.4s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.5s ease;
+            display: flex; flex-direction: column; justify-content: center;
         }
         .bento-card:hover {
-            transform: translateY(-5px);
-            background: rgba(47, 49, 122, 0.6);
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            transform: translateY(-8px);
+            background: var(--card-hover);
+            border-color: rgba(255, 255, 255, 0.15);
         }
 
-        .bento-card h3 { margin-top: 0; font-size: 1.5rem; letter-spacing: 0.5px; margin-bottom: 15px; }
-        .bento-card p { color: var(--text-muted); margin-bottom: 0; font-size: 1rem; }
+        .bento-card h3 { margin-top: 0; font-size: 1.6rem; font-weight: 600; margin-bottom: 15px; }
+        .bento-card p { color: var(--text-muted); margin-bottom: 0; font-size: 1.05rem; line-height: 1.7; }
 
-        /* Image Card Styling */
-        .image-card {
-            padding: 0; 
-            overflow: hidden;
-        }
-        .image-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        .image-card:hover img {
-            transform: scale(1.05);
-        }
+        .image-card { padding: 0; overflow: hidden; border: none; }
+        .image-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
+        .image-card:hover img { transform: scale(1.05); }
 
         /* Desktop Layouts */
         @media (min-width: 900px) {
             #ecosystem .bento-grid { grid-template-columns: repeat(4, 1fr); }
-            #eco-img { grid-column: 1 / 3; grid-row: 1 / 2; min-height: 300px; }
+            #eco-img { grid-column: 1 / 3; grid-row: 1 / 2; min-height: 350px; }
             #eco-network { grid-column: 1 / 3; grid-row: 2 / 3; }
             #eco-card-1 { grid-column: 3 / 4; grid-row: 1 / 3; }
             #eco-card-2 { grid-column: 4 / 5; grid-row: 1 / 3; }
@@ -161,35 +140,21 @@
 
         /* Footer */
         footer {
-            padding: 80px 5vw; text-align: center; background: rgba(0, 0, 0, 0.3); border-top: 1px solid var(--card-border);
+            padding: 100px 5vw; text-align: center; background: rgba(0, 0, 0, 0.4); border-top: 1px solid var(--card-border);
         }
         .cta-btn {
-            display: inline-block; margin-top: 20px; padding: 15px 40px; background: #ffffff; color: var(--bg-base);
-            text-decoration: none; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; border-radius: 30px; 
-            transition: transform 0.3s, background 0.3s;
+            display: inline-block; margin-top: 30px; padding: 18px 45px; background: #ffffff; color: var(--bg-base);
+            text-decoration: none; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; border-radius: 40px; 
+            transition: all 0.3s ease;
         }
-        .cta-btn:hover { transform: scale(1.05); background: #6d79c2; color: white; }
+        .cta-btn:hover { transform: scale(1.05); background: #6d79c2; color: white; box-shadow: 0 10px 20px rgba(109, 121, 194, 0.3); }
     </style>
 </head>
 <body>
 
     <div class="pillar-bg">
-        <div class="pillar p1"></div>
-        <div class="pillar p2"></div>
-        <div class="pillar p3"></div>
-        <div class="pillar p4"></div>
-        <div class="pillar p5"></div>
-        <div class="pillar p6"></div>
-        <div class="pillar p7"></div>
-        <div class="pillar p8"></div>
-    </div>
-
-    <div class="particles">
-        <div class="particle" style="left: 20%; top: 80%; animation-duration: 12s;"></div>
-        <div class="particle" style="left: 60%; top: 90%; animation-duration: 15s; animation-delay: 2s;"></div>
-        <div class="particle" style="left: 80%; top: 70%; animation-duration: 10s; animation-delay: 5s;"></div>
-        <div class="particle" style="left: 30%; top: 95%; animation-duration: 18s; animation-delay: 1s;"></div>
-        <div class="particle" style="left: 50%; top: 85%; animation-duration: 14s; animation-delay: 4s;"></div>
+        <div class="pillar p1"></div><div class="pillar p2"></div><div class="pillar p3"></div><div class="pillar p4"></div>
+        <div class="pillar p5"></div><div class="pillar p6"></div><div class="pillar p7"></div><div class="pillar p8"></div>
     </div>
 
     <header>
@@ -202,7 +167,7 @@
         </nav>
     </header>
 
-    <section class="hero">
+    <section class="hero reveal">
         <model-viewer 
         src="assets/3d-logo.glb" 
         auto-rotate 
@@ -217,38 +182,37 @@
     </section>
 
     <section id="about" class="section">
-        <h2 class="section-title">About Crossfield</h2>
+        <h2 class="section-title reveal">About Crossfield</h2>
         <div class="bento-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-            <div class="bento-card" style="grid-column: 1 / -1;">
-                <p style="font-size: 1.5rem; color: white;">Sustainable growth requires structure, clarity, and aligned systems.</p>
+            <div class="bento-card reveal" style="grid-column: 1 / -1;">
+                <p style="font-size: 1.8rem; color: white; line-height: 1.4;">Sustainable growth requires structure, clarity, and aligned systems.</p>
                 <br>
-                <p>We work with SMEs across Southeast Asia and beyond to build operational foundations that reduce chaos and enable strategic expansion.</p>
+                <p style="font-size: 1.2rem;">We work with SMEs across Southeast Asia and beyond to build operational foundations that reduce chaos and enable strategic expansion.</p>
             </div>
         </div>
     </section>
 
     <section id="ecosystem" class="section">
-        <h2 class="section-title">The Growth Ecosystem</h2>
-        <p class="intro-text">We integrate three critical pillars to form the structural backbone of scalable SMEs.</p>
+        <h2 class="section-title reveal">The Growth Ecosystem</h2>
         
         <div class="bento-grid">
-            <div class="bento-card image-card" id="eco-img">
+            <div class="bento-card image-card reveal" id="eco-img" style="transition-delay: 0.1s;">
                 <img src="assets/ecosystem.jpg" alt="Growth Ecosystem">
             </div>
             
-            <div class="bento-card" id="eco-card-1">
+            <div class="bento-card reveal" id="eco-card-1" style="transition-delay: 0.2s;">
                 <h3>1. Brand Architecture</h3>
                 <br>
                 <p>We refine positioning, narrative, and market clarity so growth is aligned and differentiated.</p>
             </div>
             
-            <div class="bento-card" id="eco-card-2">
+            <div class="bento-card reveal" id="eco-card-2" style="transition-delay: 0.3s;">
                 <h3>2. Automation Design</h3>
                 <br>
                 <p>We integrate smart automation to reduce manual strain and increase efficiency.</p>
             </div>
 
-            <div class="bento-card" id="eco-network">
+            <div class="bento-card reveal" id="eco-network" style="transition-delay: 0.4s;">
                 <h3>3. Strategic Network</h3>
                 <p>We connect SMEs to the right ecosystem, including cross-border partnerships, SME collaborations, and industry introductions.</p>
             </div>
@@ -256,55 +220,74 @@
     </section>
 
     <section id="stages" class="section">
-        <h2 class="section-title">Growth Stages</h2>
+        <h2 class="section-title reveal">Growth Stages</h2>
         
         <div class="bento-grid">
-            <div class="bento-card">
+            <div class="bento-card reveal" style="transition-delay: 0.1s;">
                 <h3>Stage 1:<br>Foundation</h3>
                 <br>
                 <p>For early revenue SMEs establishing structure. Outcome: A structured business foundation ready for scale.</p>
             </div>
             
-            <div class="bento-card">
+            <div class="bento-card reveal" style="transition-delay: 0.2s;">
                 <h3>Stage 2:<br>Structure</h3>
                 <br>
                 <p>For SMEs experiencing growth strain. Outcome: Aligned operations and reduced founder dependency.</p>
             </div>
             
-            <div class="bento-card">
+            <div class="bento-card reveal" style="transition-delay: 0.3s;">
                 <h3>Stage 3:<br>Expansion</h3>
                 <br>
                 <p>For SMEs entering regional or new market growth. Outcome: Sustainable, structured expansion.</p>
             </div>
             
-            <div class="bento-card image-card" id="stages-img">
+            <div class="bento-card image-card reveal" id="stages-img" style="transition-delay: 0.4s;">
                 <img src="assets/stages.jpg" alt="Growth Stages Diagram">
             </div>
         </div>
     </section>
 
-    <footer id="contact">
+    <footer id="contact" class="reveal">
         <h2>Ready to build your growth infrastructure?</h2>
-        <p style="color: var(--text-muted); margin-bottom: 30px;">All engagements begin with a Growth Diagnostic Session.</p>
+        <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem;">All engagements begin with a Growth Diagnostic Session.</p>
         <a href="https://wa.me/60123456789?text=Hi%20Crossfield%20Collective,%20I%20would%20like%20to%20book%20a%20Growth%20Diagnostic%20Session." class="cta-btn" target="_blank">Direct Line</a>
     </footer>
 
     <script>
+        // Mouse Tilt for Hero Text
         const heroText = document.getElementById('dynamic-text');
-        
         document.addEventListener('mousemove', (e) => {
-            let xAxis = (window.innerWidth / 2 - e.pageX) / 80;
-            let yAxis = (window.innerHeight / 2 - e.pageY) / 80;
+            let xAxis = (window.innerWidth / 2 - e.pageX) / 90;
+            let yAxis = (window.innerHeight / 2 - e.pageY) / 90;
             heroText.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
         });
 
+        // Smooth Scroll
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
             });
+        });
+
+        // Scroll Reveal Animation Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach((el) => {
+            observer.observe(el);
         });
     </script>
 

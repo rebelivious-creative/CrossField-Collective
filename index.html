@@ -11,9 +11,9 @@
             --text-main: #ffffff;
             --text-muted: #b0b5d1;
             --bg-base: #020112; 
-            --card-bg: rgba(255, 255, 255, 0.02); 
-            --card-border: rgba(255, 255, 255, 0.05); 
-            --card-hover: rgba(109, 121, 194, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.03); 
+            --card-border: rgba(255, 255, 255, 0.08); 
+            --card-hover: rgba(109, 121, 194, 0.15);
         }
 
         body { 
@@ -25,19 +25,19 @@
             background-color: var(--bg-base); 
         }
 
+        /* Container to center everything nicely */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
         /* --- SUBTLE PILLAR BACKGROUND --- */
         .pillar-bg {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: -2; display: flex; background: var(--bg-base);
         }
-        
-        .pillar {
-            flex: 1; 
-            border-right: 1px solid rgba(255,255,255,0.02);
-            position: relative; 
-            overflow: hidden;
-        }
-        
+        .pillar { flex: 1; border-right: 1px solid rgba(255,255,255,0.02); position: relative; overflow: hidden; }
         .pillar::before {
             content: ''; position: absolute; bottom: -30%; left: -50%; width: 200%; height: 100%;
             background: radial-gradient(circle at center, var(--glow-color), transparent 60%);
@@ -59,17 +59,6 @@
             100% { transform: translateY(-10%) scale(1.2); opacity: 0.5; }
         }
 
-        /* --- SCROLL REVEAL ANIMATIONS --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
         /* Navigation */
         header { 
             padding: 20px 5vw; display: flex; justify-content: space-between; align-items: center; 
@@ -89,16 +78,17 @@
             align-items: center; text-align: center; padding: 100px 5vw 50px; perspective: 1000px;
         }
         h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: 20px; line-height: 1.2; letter-spacing: -1px; }
-        .hero-sub { color: var(--text-muted); font-size: 1.2rem; max-width: 700px; }
+        .hero-sub { color: var(--text-muted); font-size: 1.2rem; max-width: 700px; margin: 0 auto; }
 
-        /* Section Titles */
-        .section { padding: 120px 5vw; }
+        /* Section Titles (Centered) */
+        .section { padding: 120px 5vw; text-align: center; }
         .section-title {
             font-size: 2.5rem; margin-bottom: 50px; text-transform: uppercase;
             border-bottom: 1px solid var(--card-border); padding-bottom: 20px;
+            display: inline-block; /* Keeps the border tight to the text */
         }
 
-        /* Clean Bento Box Cards */
+        /* --- CENTERED & FUN BENTO CARDS --- */
         .bento-grid {
             display: grid; gap: 24px; grid-template-columns: 1fr;
         }
@@ -106,24 +96,28 @@
         .bento-card {
             background: var(--card-bg);
             backdrop-filter: blur(15px);
-            padding: 50px 40px; /* Increased padding for cleaner look */
-            border-radius: 24px;
+            padding: 50px 40px; 
+            border-radius: 30px; /* Rounder, friendlier corners */
             border: 1px solid var(--card-border);
-            transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.5s ease;
-            display: flex; flex-direction: column; justify-content: center;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, background 0.4s ease; /* Bouncy transition */
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; /* Centered content */
         }
+        
+        /* Fun Hover Effect */
         .bento-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-15px) scale(1.02); /* Floats up and slightly zooms */
             background: var(--card-hover);
-            border-color: rgba(255, 255, 255, 0.15);
+            border-color: rgba(109, 121, 194, 0.5);
+            box-shadow: 0 25px 50px rgba(0, 40, 163, 0.3); /* Bright blue glowing shadow */
+            z-index: 10;
         }
 
-        .bento-card h3 { margin-top: 0; font-size: 1.6rem; font-weight: 600; margin-bottom: 15px; }
-        .bento-card p { color: var(--text-muted); margin-bottom: 0; font-size: 1.05rem; line-height: 1.7; }
+        .bento-card h3 { margin-top: 0; font-size: 1.6rem; font-weight: 600; margin-bottom: 15px; color: #ffffff; }
+        .bento-card p { color: var(--text-muted); margin-bottom: 0; font-size: 1.05rem; line-height: 1.7; max-width: 90%; }
 
         .image-card { padding: 0; overflow: hidden; border: none; }
         .image-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
-        .image-card:hover img { transform: scale(1.05); }
+        .image-card:hover img { transform: scale(1.08); }
 
         /* Desktop Layouts */
         @media (min-width: 900px) {
@@ -138,6 +132,10 @@
             #stages-img { grid-column: span 2; }
         }
 
+        /* Scroll Reveal Animations */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
         /* Footer */
         footer {
             padding: 100px 5vw; text-align: center; background: rgba(0, 0, 0, 0.4); border-top: 1px solid var(--card-border);
@@ -145,9 +143,9 @@
         .cta-btn {
             display: inline-block; margin-top: 30px; padding: 18px 45px; background: #ffffff; color: var(--bg-base);
             text-decoration: none; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; border-radius: 40px; 
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .cta-btn:hover { transform: scale(1.05); background: #6d79c2; color: white; box-shadow: 0 10px 20px rgba(109, 121, 194, 0.3); }
+        .cta-btn:hover { transform: scale(1.1); background: #6d79c2; color: white; box-shadow: 0 15px 30px rgba(109, 121, 194, 0.4); }
     </style>
 </head>
 <body>
@@ -167,85 +165,82 @@
         </nav>
     </header>
 
-    <section class="hero reveal">
-        <model-viewer 
-        src="assets/3d-logo.glb" 
-        auto-rotate 
-        camera-controls 
-        disable-zoom 
-        exposure="0.8"
-        style="width: 100%; height: 350px; background-color: transparent; outline: none; margin-bottom: 20px;">
-        </model-viewer>
-        
-        <h1 id="dynamic-text">Building Growth Infrastructure<br>for Ambitious SMEs</h1>
-        <p class="hero-sub">Crossfield Collective aligns brand, systems, automation, and strategic networks to help SMEs scale beyond survival mode.</p>
-    </section>
+    <div class="container">
+        <section class="hero reveal">
+            <model-viewer 
+            src="assets/3d-logo.glb" 
+            auto-rotate 
+            camera-controls 
+            disable-zoom 
+            exposure="0.8"
+            style="width: 100%; height: 350px; background-color: transparent; outline: none; margin-bottom: 20px;">
+            </model-viewer>
+            
+            <h1 id="dynamic-text">Building Growth Infrastructure<br>for Ambitious SMEs</h1>
+            <p class="hero-sub">Crossfield Collective aligns brand, systems, automation, and strategic networks to help SMEs scale beyond survival mode.</p>
+        </section>
 
-    <section id="about" class="section">
-        <h2 class="section-title reveal">About Crossfield</h2>
-        <div class="bento-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-            <div class="bento-card reveal" style="grid-column: 1 / -1;">
-                <p style="font-size: 1.8rem; color: white; line-height: 1.4;">Sustainable growth requires structure, clarity, and aligned systems.</p>
-                <br>
-                <p style="font-size: 1.2rem;">We work with SMEs across Southeast Asia and beyond to build operational foundations that reduce chaos and enable strategic expansion.</p>
+        <section id="about" class="section">
+            <h2 class="section-title reveal">About Crossfield</h2>
+            <div class="bento-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                <div class="bento-card reveal" style="grid-column: 1 / -1; padding: 60px;">
+                    <p style="font-size: 1.8rem; color: white; line-height: 1.4; max-width: 100%;">Sustainable growth requires structure, clarity, and aligned systems.</p>
+                    <br>
+                    <p style="font-size: 1.2rem; max-width: 100%;">We work with SMEs across Southeast Asia and beyond to build operational foundations that reduce chaos and enable strategic expansion.</p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="ecosystem" class="section">
-        <h2 class="section-title reveal">The Growth Ecosystem</h2>
-        
-        <div class="bento-grid">
-            <div class="bento-card image-card reveal" id="eco-img" style="transition-delay: 0.1s;">
-                <img src="assets/ecosystem.jpg" alt="Growth Ecosystem">
-            </div>
+        <section id="ecosystem" class="section">
+            <h2 class="section-title reveal">The Growth Ecosystem</h2>
             
-            <div class="bento-card reveal" id="eco-card-1" style="transition-delay: 0.2s;">
-                <h3>1. Brand Architecture</h3>
-                <br>
-                <p>We refine positioning, narrative, and market clarity so growth is aligned and differentiated.</p>
-            </div>
-            
-            <div class="bento-card reveal" id="eco-card-2" style="transition-delay: 0.3s;">
-                <h3>2. Automation Design</h3>
-                <br>
-                <p>We integrate smart automation to reduce manual strain and increase efficiency.</p>
-            </div>
+            <div class="bento-grid">
+                <div class="bento-card image-card reveal" id="eco-img" style="transition-delay: 0.1s;">
+                    <img src="assets/ecosystem.jpg" alt="Growth Ecosystem">
+                </div>
+                
+                <div class="bento-card reveal" id="eco-card-1" style="transition-delay: 0.2s;">
+                    <h3>1. Brand Architecture</h3>
+                    <p>We refine positioning, narrative, and market clarity so growth is aligned and differentiated.</p>
+                </div>
+                
+                <div class="bento-card reveal" id="eco-card-2" style="transition-delay: 0.3s;">
+                    <h3>2. Automation Design</h3>
+                    <p>We integrate smart automation to reduce manual strain and increase efficiency.</p>
+                </div>
 
-            <div class="bento-card reveal" id="eco-network" style="transition-delay: 0.4s;">
-                <h3>3. Strategic Network</h3>
-                <p>We connect SMEs to the right ecosystem, including cross-border partnerships, SME collaborations, and industry introductions.</p>
+                <div class="bento-card reveal" id="eco-network" style="transition-delay: 0.4s;">
+                    <h3>3. Strategic Network</h3>
+                    <p>We connect SMEs to the right ecosystem, including cross-border partnerships, SME collaborations, and industry introductions.</p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="stages" class="section">
-        <h2 class="section-title reveal">Growth Stages</h2>
-        
-        <div class="bento-grid">
-            <div class="bento-card reveal" style="transition-delay: 0.1s;">
-                <h3>Stage 1:<br>Foundation</h3>
-                <br>
-                <p>For early revenue SMEs establishing structure. Outcome: A structured business foundation ready for scale.</p>
-            </div>
+        <section id="stages" class="section">
+            <h2 class="section-title reveal">Growth Stages</h2>
             
-            <div class="bento-card reveal" style="transition-delay: 0.2s;">
-                <h3>Stage 2:<br>Structure</h3>
-                <br>
-                <p>For SMEs experiencing growth strain. Outcome: Aligned operations and reduced founder dependency.</p>
+            <div class="bento-grid">
+                <div class="bento-card reveal" style="transition-delay: 0.1s;">
+                    <h3>Stage 1:<br>Foundation</h3>
+                    <p>For early revenue SMEs establishing structure. Outcome: A structured business foundation ready for scale.</p>
+                </div>
+                
+                <div class="bento-card reveal" style="transition-delay: 0.2s;">
+                    <h3>Stage 2:<br>Structure</h3>
+                    <p>For SMEs experiencing growth strain. Outcome: Aligned operations and reduced founder dependency.</p>
+                </div>
+                
+                <div class="bento-card reveal" style="transition-delay: 0.3s;">
+                    <h3>Stage 3:<br>Expansion</h3>
+                    <p>For SMEs entering regional or new market growth. Outcome: Sustainable, structured expansion.</p>
+                </div>
+                
+                <div class="bento-card image-card reveal" id="stages-img" style="transition-delay: 0.4s;">
+                    <img src="assets/stages.jpg" alt="Growth Stages Diagram">
+                </div>
             </div>
-            
-            <div class="bento-card reveal" style="transition-delay: 0.3s;">
-                <h3>Stage 3:<br>Expansion</h3>
-                <br>
-                <p>For SMEs entering regional or new market growth. Outcome: Sustainable, structured expansion.</p>
-            </div>
-            
-            <div class="bento-card image-card reveal" id="stages-img" style="transition-delay: 0.4s;">
-                <img src="assets/stages.jpg" alt="Growth Stages Diagram">
-            </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
     <footer id="contact" class="reveal">
         <h2>Ready to build your growth infrastructure?</h2>
@@ -254,7 +249,6 @@
     </footer>
 
     <script>
-        // Mouse Tilt for Hero Text
         const heroText = document.getElementById('dynamic-text');
         document.addEventListener('mousemove', (e) => {
             let xAxis = (window.innerWidth / 2 - e.pageX) / 90;
@@ -262,7 +256,6 @@
             heroText.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
         });
 
-        // Smooth Scroll
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -270,25 +263,17 @@
             });
         });
 
-        // Scroll Reveal Animation Observer
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.15
-        };
-
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    observer.unobserve(entry.target); // Only animate once
+                    observer.unobserve(entry.target); 
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.reveal').forEach((el) => {
-            observer.observe(el);
-        });
+        document.querySelectorAll('.reveal').forEach((el) => { observer.observe(el); });
     </script>
 
 </body>

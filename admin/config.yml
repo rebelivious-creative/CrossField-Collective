@@ -17,3 +17,4 @@ collections:
           - {label: "Hero Title", name: "hero_title", widget: "string"}
           - {label: "Hero Subtitle", name: "hero_sub", widget: "text"}
           - {label: "About Text", name: "about_text", widget: "text"}
+          

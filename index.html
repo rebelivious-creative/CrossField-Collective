@@ -250,73 +250,6 @@
     </footer>
 
 
-
-
-    <script>
-        // Existing script for loading and mouse hover goes here
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('loader');
-            setTimeout(() => {
-                loader.style.opacity = '0';
-                setTimeout(() => { loader.style.display = 'none'; }, 500);
-            }, 500);
-        });
-
-        const heroText = document.getElementById('dynamic-text');
-        document.addEventListener('mousemove', (e) => {
-            let xAxis = (window.innerWidth / 2 - e.pageX) / 90;
-            let yAxis = (window.innerHeight / 2 - e.pageY) / 90;
-            heroText.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-        });
-
-        // ----------------------------------------------------
-        // MAGIC EDIT MODE: Invisible until you add ?edit to URL
-        // ----------------------------------------------------
-        
-        // 1. Create a clean, white editing box
-        const editBox = document.createElement('div');
-        editBox.style.cssText = `
-            display: none; position: fixed; top: 10px; right: 10px; z-index: 1000;
-            background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); color: black;
-        `;
-        
-        // Add a text area and a save button inside it
-        editBox.innerHTML = `
-            <h4 style="margin-top:0;">Edit Hero Subtitle</h4>
-            <textarea id="client-editor" style="width: 300px; height: 100px; padding: 10px; font-family: sans-serif;"></textarea><br>
-            <button id="save-client-btn" style="margin-top: 10px; padding: 10px 20px; background: #6d79c2; color: white; border: none; border-radius: 5px; cursor: pointer;">Save Changes (Temporarily)</button>
-            <p style="font-size: 0.8rem; color: #666; margin-bottom:0;">Note: Tell your developer to save these changes permanently.</p>
-        `;
-        document.body.appendChild(editBox);
-
-        const heroSub = document.getElementById('hero-sub');
-        const editor = document.getElementById('client-editor');
-        const saveBtn = document.getElementById('save-client-btn');
-
-        // Load any saved temporary changes
-        if (localStorage.getItem('savedHeroSub')) {
-            heroSub.innerText = localStorage.getItem('savedHeroSub');
-        }
-
-        // 2. The trigger: Check the URL for "?edit"
-        if (window.location.search.includes('edit')) {
-            editBox.style.display = 'block'; // Make it visible
-            editor.value = heroSub.innerText; // Put the current text into the box
-        }
-
-        // 3. What happens when they click Save
-        saveBtn.addEventListener('click', () => {
-            heroSub.innerText = editor.value; // Update the website instantly
-            localStorage.setItem('savedHeroSub', editor.value); // Save it to their browser
-            alert('Changes saved! The text will stay updated for you. Send the new text to your developer to make it permanent for everyone.');
-        });
-    </script>
-
-
-
-
-    
-
     <script>
         // Remove Loader when page is ready
         window.addEventListener('load', () => {
@@ -368,3 +301,4 @@
 
 </body>
 </html>
+

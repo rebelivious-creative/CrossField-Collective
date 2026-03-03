@@ -19,17 +19,51 @@
             color: var(--text-main); 
             overflow-x: hidden; 
             line-height: 1.6;
-            
-            /* The Fix: Much darker colors from the palette and a very slow 45s animation */
-            background: linear-gradient(-45deg, #050510, #010055, #120a2e, #2d296d);
-            background-size: 400% 400%;
-            animation: gradientBG 45s ease infinite;
+            background-color: #010055; /* Base color from your palette */
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* --- INTERACTIVE FLUID WAVE BACKGROUND --- */
+        .wave-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: #010055;
+        }
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.8;
+            transition: transform 0.2s ease-out;
+        }
+        .blob-1 {
+            background: #0028a3;
+            width: 60vw; height: 60vw;
+            top: -10vw; left: -10vw;
+            animation: float 20s infinite alternate ease-in-out;
+        }
+        .blob-2 {
+            background: #6d79c2; /* Lighter interactive wave */
+            width: 40vw; height: 40vw;
+            top: 20vh; right: 10vw;
+            opacity: 0.5;
+        }
+        .blob-3 {
+            background: #271561;
+            width: 70vw; height: 70vw;
+            bottom: -20vh; right: -10vw;
+            animation: float-reverse 25s infinite alternate ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(10vw, 10vh) scale(1.1); }
+        }
+        @keyframes float-reverse {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-10vw, -10vh) scale(1.2); }
         }
         
         /* Navigation */
@@ -40,8 +74,8 @@
             align-items: center; 
             position: fixed;
             top: 0; width: 90vw;
-            background: rgba(5, 5, 16, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(1, 0, 85, 0.5);
+            backdrop-filter: blur(15px);
             z-index: 100;
             border-bottom: 1px solid var(--accent);
         }
@@ -107,9 +141,7 @@
         }
 
         /* Content Section */
-        .section {
-            padding: 100px 5vw;
-        }
+        .section { padding: 100px 5vw; }
         .section-title {
             font-size: 2.5rem;
             margin-bottom: 40px;
@@ -131,46 +163,41 @@
             gap: 20px;
         }
         .card {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             padding: 40px;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.4s ease;
-            border: 1px solid var(--accent);
-            position: relative;
-            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .card:hover {
             transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: #ffffff;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
         }
         .card h3 { 
-            margin-top: 0; 
-            font-size: 1.3rem; 
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-top: 0; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 1px;
         }
         .card p { 
-            color: var(--text-muted); 
-            transition: opacity 0.3s; 
-            margin-bottom: 0;
-            font-size: 0.95rem;
+            color: var(--text-muted); margin-bottom: 0; font-size: 0.95rem;
         }
 
-        /* Diagrams */
+        /* Diagram Images */
         .diagram-container {
             margin: 40px 0;
             text-align: center;
-            padding: 40px;
-            border: 1px dashed var(--accent);
-            border-radius: 8px;
-            color: var(--text-muted);
+        }
+        .diagram-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border: 1px solid var(--accent);
         }
 
-        /* Footer / Contact */
+        /* Footer */
         footer {
             padding: 80px 5vw;
             text-align: center;
@@ -197,6 +224,12 @@
     </style>
 </head>
 <body>
+
+    <div class="wave-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2" id="interactive-wave"></div>
+        <div class="blob blob-3"></div>
+    </div>
 
     <header>
         <div class="logo">Crossfield Collective</div>
@@ -234,16 +267,13 @@
         <p class="intro-text">
             Sustainable growth requires structure, clarity, and aligned systems. We work with SMEs across Southeast Asia and beyond to build operational foundations that reduce chaos and enable strategic expansion.
         </p>
-        <p class="intro-text" style="font-size: 1.1rem; opacity: 0.8;">
-            True scale happens when branding, systems, and networks move together. We act as your Infrastructure Architect, Automation Designer, and Ecosystem Connector.
-        </p>
     </section>
 
     <section id="ecosystem" class="section">
         <h2 class="section-title">The Growth Ecosystem</h2>
         
         <div class="diagram-container">
-            [Insert Circular Ecosystem Image Here]
+            <img src="assets/ecosystem.jpg" alt="Growth Ecosystem" class="diagram-img">
         </div>
 
         <p class="intro-text">We integrate three critical pillars to form the structural backbone of scalable SMEs:</p>
@@ -251,15 +281,15 @@
         <div class="grid-container">
             <div class="card">
                 <h3>1. Brand Architecture</h3>
-                <p>We refine positioning, narrative, and market clarity so growth is aligned and differentiated. Includes positioning strategy and offer clarity.</p>
+                <p>We refine positioning, narrative, and market clarity so growth is aligned and differentiated.</p>
             </div>
             <div class="card">
                 <h3>2. Automation Design</h3>
-                <p>We integrate smart automation to reduce manual strain and increase efficiency. Includes CRM setup, workflow automation, and chatbot implementation.</p>
+                <p>We integrate smart automation to reduce manual strain and increase efficiency.</p>
             </div>
             <div class="card">
                 <h3>3. Strategic Network</h3>
-                <p>We connect SMEs to the right ecosystem. Includes cross-border partnerships, SME collaborations, and industry introductions.</p>
+                <p>We connect SMEs to the right ecosystem, including cross-border partnerships.</p>
             </div>
         </div>
     </section>
@@ -268,21 +298,21 @@
         <h2 class="section-title">Growth Stages</h2>
         
         <div class="diagram-container">
-            [Insert Growth Stages Diagram Here]
+            <img src="assets/stages.jpg" alt="Growth Stages" class="diagram-img">
         </div>
 
         <div class="grid-container">
             <div class="card">
                 <h3>Stage 1: Foundation</h3>
-                <p>For early revenue SMEs establishing structure. Focuses on brand clarity and basic CRM setup. Outcome: A structured business foundation ready for scale.</p>
+                <p>For early revenue SMEs establishing structure. Outcome: A structured business foundation ready for scale.</p>
             </div>
             <div class="card">
                 <h3>Stage 2: Structure</h3>
-                <p>For SMEs experiencing growth strain. Focuses on automation audit and SOP buildout. Outcome: Aligned operations and reduced founder dependency.</p>
+                <p>For SMEs experiencing growth strain. Outcome: Aligned operations and reduced founder dependency.</p>
             </div>
             <div class="card">
                 <h3>Stage 3: Expansion</h3>
-                <p>For SMEs entering regional or new market growth. Focuses on automation at scale and strategic ecosystem access. Outcome: Sustainable, structured expansion.</p>
+                <p>For SMEs entering regional or new market growth. Outcome: Sustainable, structured expansion.</p>
             </div>
         </div>
     </section>
@@ -291,18 +321,27 @@
         <h2>Ready to build your growth infrastructure?</h2>
         <p style="color: var(--text-muted); margin-bottom: 30px;">All engagements begin with a Growth Diagnostic Session.</p>
         <a href="https://wa.me/60123456789?text=Hi%20Crossfield%20Collective,%20I%20would%20like%20to%20book%20a%20Growth%20Diagnostic%20Session." class="cta-btn" target="_blank">Direct Line</a>
-        <p style="margin-top: 50px; font-size: 0.8rem; color: rgba(255,255,255,0.4);">Crossfield Collective. Infrastructure Design & Automation Implementation.</p>
     </footer>
 
     <script>
+        // Hero Text Tilt Interaction
         const heroText = document.getElementById('dynamic-text');
+        // The Interactive Wave Background
+        const wave = document.getElementById('interactive-wave');
         
         document.addEventListener('mousemove', (e) => {
-            let xAxis = (window.innerWidth / 2 - e.pageX) / 80; /* Calmed down the text movement slightly too */
+            // Move the text slightly
+            let xAxis = (window.innerWidth / 2 - e.pageX) / 80;
             let yAxis = (window.innerHeight / 2 - e.pageY) / 80;
             heroText.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+
+            // Move the wave blob slightly towards the mouse
+            let waveX = (e.pageX - window.innerWidth / 2) * 0.1;
+            let waveY = (e.pageY - window.innerHeight / 2) * 0.1;
+            wave.style.transform = `translate(${waveX}px, ${waveY}px)`;
         });
 
+        // Smooth Scroll for Navigation Links
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();

@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crossfield Collective | SME Growth Infrastructure</title>
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
     
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     
     <link rel="icon" type="image/png" href="assets/favicon.png">
+    
     <style>
+        /* CSS Variables */
         :root {
             --text-main: #ffffff;
             --text-muted: #b0b5d1;
@@ -19,6 +21,7 @@
             --card-hover: rgba(109, 121, 194, 0.15);
         }
 
+        /* Base Styles */
         body { 
             margin: 0; 
             font-family: 'Helvetica Neue', Arial, sans-serif; 
@@ -28,6 +31,7 @@
             background-color: var(--bg-base); 
         }
 
+        /* Loader */
         #loader {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: var(--bg-base); z-index: 9999; display: flex;
@@ -40,8 +44,10 @@
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
+        /* Layout */
         .container { max-width: 1200px; margin: 0 auto; width: 100%; }
 
+        /* Background Animation */
         .pillar-bg {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: -2; display: flex; background: var(--bg-base);
@@ -68,18 +74,28 @@
             100% { transform: translateY(-10%) scale(1.2); opacity: 0.5; }
         }
 
+        /* Navigation */
         header { 
             padding: 20px 5vw; display: flex; justify-content: space-between; align-items: center; 
             position: fixed; top: 0; width: 90vw; background: rgba(2, 1, 18, 0.7);
             backdrop-filter: blur(20px); z-index: 100; border-bottom: 1px solid var(--card-border);
         }
         .logo { font-weight: 800; letter-spacing: 2px; font-size: 1.2rem; text-transform: uppercase;}
+        nav { display: flex; align-items: center; }
         nav a { 
             color: var(--text-main); text-decoration: none; margin-left: 30px; 
             font-size: 0.9rem; letter-spacing: 1px; transition: color 0.3s ease;
         }
         nav a:hover { color: #6d79c2; }
+        
+        /* Google Translate Styling Adjustments */
+        .goog-te-gadget { color: transparent !important; font-size: 0; margin-left: 30px; }
+        .goog-te-gadget .goog-te-combo { margin: 0; padding: 5px; border-radius: 4px; background: rgba(255,255,255,0.1); color: white; border: 1px solid var(--card-border); outline: none; }
+        .goog-te-gadget .goog-te-combo option { color: black; }
+        .goog-logo-link { display: none !important; }
+        .goog-te-gadget span { display: none !important; }
 
+        /* Typography & Sections */
         .hero { 
             min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
             align-items: center; text-align: center; padding: 100px 5vw 50px; perspective: 1000px;
@@ -93,6 +109,7 @@
             border-bottom: 1px solid var(--card-border); padding-bottom: 20px; display: inline-block;
         }
 
+        /* Components: Bento Grid */
         .bento-grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
 
         .bento-card {
@@ -114,6 +131,7 @@
         .image-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
         .image-card:hover img { transform: scale(1.08); }
 
+        /* Media Queries */
         @media (min-width: 900px) {
             #ecosystem .bento-grid { grid-template-columns: repeat(4, 1fr); }
             #eco-img-box { grid-column: 1 / 3; grid-row: 1 / 2; min-height: 350px; }
@@ -128,6 +146,7 @@
             #stages-card-3 { grid-column: 4 / 5; grid-row: 1 / 3; }
         }
 
+        /* Utilities */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
@@ -158,6 +177,8 @@
             <a href="#ecosystem">Ecosystem</a>
             <a href="#stages">Stages</a>
             <a href="#contact">Contact</a>
+            
+            <div id="google_translate_element"></div>
         </nav>
     </header>
 
@@ -244,9 +265,8 @@
         <a href="https://wa.me/60123456789?text=Hi%20Crossfield%20Collective,%20I%20would%20like%20to%20book%20a%20Growth%20Diagnostic%20Session." class="cta-btn" target="_blank">Direct Line</a>
     </footer>
 
-
     <script>
-        // Remove Loader when page is ready
+        // DOM Event Listeners
         window.addEventListener('load', () => {
             const loader = document.getElementById('loader');
             setTimeout(() => {
@@ -255,7 +275,6 @@
             }, 500);
         });
 
-        // Mouse Tilt for Hero Text
         const heroText = document.getElementById('hero_title');
         document.addEventListener('mousemove', (e) => {
             let xAxis = (window.innerWidth / 2 - e.pageX) / 90;
@@ -263,7 +282,6 @@
             if(heroText) heroText.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
         });
 
-        // Smooth Scroll
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -271,7 +289,7 @@
             });
         });
 
-        // Scroll Reveal Animation
+        // Intersection Observer for Animations
         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -283,41 +301,52 @@
         }, observerOptions);
         document.querySelectorAll('.reveal').forEach((el) => { observer.observe(el); });
 
-        // ==========================================
-        // GOOGLE SHEETS CONNECTION MAGiC
-        // ==========================================
-        const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQY7PWgNYSMwZzffmMA79k_A0ZsSW03LKGsKUTJxPv92v-HAk2IaV5MsuQ8AWVz8IDjz83pQpX3TjgW/pub?output=csv";
+        // Data Fetch & DOM Hydration
+        const cacheBuster = new Date().getTime();
+        const sheetUrl = `https://docs.google.com/spreadsheets/d/e/2PACX-1vQY7PWgNYSMwZzffmMA79k_A0ZsSW03LKGsKUTJxPv92v-HAk2IaV5MsuQ8AWVz8IDjz83pQpX3TjgW/pub?output=csv&v=${cacheBuster}`;
 
         Papa.parse(sheetUrl, {
             download: true,
             header: true,
             complete: function(results) {
-                let data = results.data;
+                const data = results.data;
                 
                 data.forEach(row => {
-                    // Check if both cells have data
                     if (row.Location && row.Content) {
-                        let element = document.getElementById(row.Location.trim());
+                        const element = document.getElementById(row.Location.trim());
                         
                         if (element) {
-                            // If it's an image, convert Google Drive link or use direct link
                             if (element.tagName === 'IMG') {
-                                let driveMatch = row.Content.match(/\/d\/([a-zA-Z0-9_-]+)/);
-                                if (driveMatch) {
-                                    element.src = "https://drive.google.com/uc?export=view&id=" + driveMatch[1];
-                                } else {
-                                    element.src = row.Content; // Normal image link fallback
-                                }
+                                const driveMatch = row.Content.match(/\/d\/([a-zA-Z0-9_-]+)/);
+                                element.src = driveMatch 
+                                    ? `https://drive.google.com/uc?export=view&id=${driveMatch[1]}` 
+                                    : row.Content;
+                            } else if (element.tagName === 'A') {
+                                element.href = row.Content;
+                                element.style.display = "inline-block";
                             } else {
-                                // If it's normal text
                                 element.innerHTML = row.Content;
                             }
                         }
                     }
                 });
+            },
+            error: function(err) {
+                console.error("Data fetch failed:", err);
             }
         });
     </script>
+    
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,ms,zh-CN,ta',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 </html>
